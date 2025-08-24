@@ -1,0 +1,315 @@
+.sidebar {
+  background: rgba(26, 26, 26, 0.7); /* Glass background */
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(25px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden; /* Prevent entire sidebar from scrolling */
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+/* Header */
+.sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2); /* Slight header background */
+}
+
+.sidebar.collapsed .sidebar-header {
+  flex-direction: column;
+  padding: 12px 8px;
+}
+
+.new-chat-button {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(5, 252, 199, 0.9), rgba(4, 176, 139, 0.8)); /* Glass green */
+  color: var(--color-black);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 16px rgba(5, 252, 199, 0.3), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.sidebar.collapsed .new-chat-button {
+  flex: none;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.sidebar.collapsed .new-chat-button span {
+  display: none;
+}
+
+.new-chat-button:hover {
+  background-color: var(--color-green-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(5, 252, 199, 0.3);
+}
+
+.toggle-button {
+  background: var(--color-medium-gray);
+  color: var(--color-white);
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-button:hover {
+  background-color: var(--color-light-gray);
+  color: var(--color-green);
+}
+
+/* Conversations Container */
+.conversations-container {
+  flex: 1;
+  overflow-y: auto; /* Only this section scrolls within sidebar */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  padding: 16px 0;
+  scroll-behavior: smooth;
+}
+
+.sidebar.collapsed .conversations-container {
+  padding: 8px 0;
+}
+
+.conversation-group {
+  margin-bottom: 24px;
+}
+
+.sidebar.collapsed .conversation-group {
+  margin-bottom: 12px;
+}
+
+.group-title {
+  color: var(--color-light-gray);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 16px;
+}
+
+.conversation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.conversation-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border-radius: 8px;
+  margin: 2px 8px;
+}
+
+.sidebar.collapsed .conversation-item {
+  padding: 12px 8px;
+  justify-content: center;
+}
+
+.conversation-item:hover {
+  background: rgba(255, 255, 255, 0.1); /* Glass hover */
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+.conversation-item.active {
+  background: rgba(5, 252, 199, 0.15); /* Glass active with green tint */
+  border: 1px solid rgba(5, 252, 199, 0.3);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 16px rgba(5, 252, 199, 0.2), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+.conversation-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar.collapsed .conversation-content {
+  display: flex;
+  justify-content: center;
+}
+
+.conversation-title {
+  color: var(--color-white);
+  font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.sidebar.collapsed .conversation-title {
+  margin-bottom: 0;
+  font-size: 1.2rem;
+}
+
+.conversation-preview {
+  color: var(--color-light-gray);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.conversation-time {
+  color: var(--color-light-gray);
+  font-size: 0.7rem;
+}
+
+.conversation-menu {
+  background: none;
+  border: none;
+  color: var(--color-light-gray);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.conversation-item:hover .conversation-menu {
+  opacity: 1;
+}
+
+.conversation-menu:hover {
+  background-color: var(--color-light-gray);
+  color: var(--color-white);
+}
+
+/* Footer */
+.sidebar-footer {
+  border-top: 1px solid var(--color-medium-gray);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  padding: 12px 8px;
+}
+
+.footer-button {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.sidebar.collapsed .footer-button {
+  padding: 10px 8px;
+  justify-content: center;
+}
+
+.sidebar.collapsed .footer-button span {
+  display: none;
+}
+
+.footer-button:hover {
+  background-color: var(--color-medium-gray);
+  color: var(--color-green);
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: var(--color-red);
+}
+
+/* Scrollbar Styling */
+.conversations-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.conversations-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.conversations-container::-webkit-scrollbar-thumb {
+  background: var(--color-medium-gray);
+  border-radius: 2px;
+}
+
+.conversations-container::-webkit-scrollbar-thumb:hover {
+  background: var(--color-light-gray);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 280px;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+  
+  .sidebar.collapsed {
+    width: 60px;
+    transform: translateX(0);
+  }
+}
+
+/* Animation for mobile sidebar overlay */
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar-overlay.visible {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,87 @@
+.app-container {
+  min-height: 100vh;
+  height: 100vh; /* Fixed height to prevent document scrolling */
+  background: transparent; /* Allow global background to show through */
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent app container from scrolling */
+}
+
+.app-main {
+  flex: 1;
+  padding: 40px 0;
+}
+
+.app-main h2 {
+  color: var(--color-green);
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.app-main p {
+  text-align: center;
+  color: var(--color-light-gray);
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+.placeholder-content {
+  background-color: var(--color-dark-gray);
+  border: 2px solid var(--color-medium-gray);
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.placeholder-content h3 {
+  color: var(--color-green);
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.placeholder-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.placeholder-content li {
+  color: var(--color-white);
+  padding: 10px 0;
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--color-medium-gray);
+}
+
+.placeholder-content li:last-child {
+  border-bottom: none;
+}
+
+.placeholder-content li::before {
+  content: "▶ ";
+  color: var(--color-green);
+  font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .app-main {
+    padding: 20px 0;
+  }
+  
+  .placeholder-content {
+    padding: 20px;
+  }
+}

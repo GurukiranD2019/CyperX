@@ -1,0 +1,190 @@
+.chat-interface {
+  display: flex;
+  height: calc(100vh - 72px); /* Subtract header height */
+  background: transparent; /* Allow global background to show through */
+  position: relative;
+  overflow: hidden; /* Prevent entire interface from scrolling */
+}
+
+/* Mobile Menu Button */
+.mobile-menu-button {
+  display: none;
+  position: fixed;
+  top: 80px;
+  left: 16px;
+  z-index: 1001;
+  background: linear-gradient(135deg, rgba(5, 252, 199, 0.9), rgba(4, 176, 139, 0.8)); /* Glass green */
+  color: var(--color-black);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 8px;
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 16px rgba(5, 252, 199, 0.3), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-button:hover {
+  background: linear-gradient(135deg, rgba(5, 252, 199, 1), rgba(4, 176, 139, 0.9));
+  transform: translateY(-1px);
+}
+
+/* Sidebar Container */
+.sidebar-container {
+  width: 30%;
+  min-width: 280px;
+  max-width: 400px;
+  transition: all 0.3s ease;
+  z-index: 100;
+  height: 100%; /* Full height of parent */
+  overflow: hidden; /* Prevent sidebar container from scrolling */
+}
+
+.sidebar-container.collapsed {
+  width: 60px;
+  min-width: 60px;
+  overflow: hidden; /* Maintain no scrolling when collapsed */
+}
+
+/* Chat Container */
+.chat-container {
+  flex: 1;
+  width: 70%;
+  transition: all 0.3s ease;
+  background: transparent; /* Allow global background to show through */
+  height: 100%; /* Full height of parent */
+  overflow: hidden; /* Prevent chat container itself from scrolling */
+}
+
+.chat-container.sidebar-collapsed {
+  width: calc(100% - 60px);
+  overflow: hidden; /* Maintain no scrolling when sidebar collapsed */
+}
+
+/* Mobile Sidebar Overlay */
+.mobile-sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .sidebar-container {
+    width: 35%;
+    min-width: 250px;
+  }
+  
+  .chat-container {
+    width: 65%;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+  }
+  
+  .sidebar-container {
+    position: fixed;
+    top: 72px; /* Below header */
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  }
+  
+  .sidebar-container.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-container.collapsed {
+    width: 60px;
+    transform: translateX(0);
+  }
+  
+  .sidebar-container.collapsed.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .chat-container {
+    width: 100%;
+    margin-left: 0;
+  }
+  
+  .chat-container.sidebar-collapsed {
+    width: calc(100% - 60px);
+    margin-left: 60px;
+  }
+  
+  .mobile-sidebar-overlay {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-interface {
+    height: calc(100vh - 64px); /* Smaller header on mobile */
+  }
+  
+  .mobile-menu-button {
+    top: 72px;
+    left: 12px;
+    padding: 6px;
+  }
+  
+  .sidebar-container {
+    top: 64px;
+    width: 100%;
+    max-width: none;
+  }
+  
+  .sidebar-container.collapsed {
+    width: 50px;
+  }
+  
+  .chat-container.sidebar-collapsed {
+    width: calc(100% - 50px);
+    margin-left: 50px;
+  }
+}
+
+/* Smooth transitions for all screen sizes */
+.sidebar-container,
+.chat-container {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus states for accessibility */
+.mobile-menu-button:focus {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .sidebar-container {
+    border-right: 2px solid var(--color-white);
+  }
+  
+  .mobile-menu-button {
+    border: 2px solid var(--color-black);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-container,
+  .chat-container,
+  .mobile-menu-button {
+    transition: none;
+  }
+}
